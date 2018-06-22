@@ -119,6 +119,7 @@ class mainWindow(Gtk.Window):
 			dialog.destroy()
 			sys.exit(0)
 
+		self.dbg=False
 		Gtk.Window.__init__(self,title=_("Mirror Redirect"))
 		self.set_resizable(False)
 		self.stack=Gtk.Stack()
