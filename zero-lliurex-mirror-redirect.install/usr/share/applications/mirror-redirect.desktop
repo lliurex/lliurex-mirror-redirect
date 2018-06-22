@@ -1,0 +1,21 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Mirror redirect
+Name[en]=Mirror redirect
+Name[es]=Mirror redirect
+Name[ca_ES@valencia]=Mirror redirect
+Name[ca_ES.UTF-8@valencia]=Mirror redirect
+Name[ca]=Mirror redirect
+Comment=Redirects the mirror on a slave server to the master server
+Comment[es]=Redirecciona el mirror de un servidor esclavo al servidor maestro
+Comment[ca]=Redirecciona el mirror del servidor esclau al servidor mestre
+Comment[ca_ES@valencia]=Redirecciona el mirror del servidor esclau al servidor mestre
+Comment[ca_ES.UTF-8@valencia]=Redirecciona el mirror del servidor esclau al servidor mestre
+Exec=mirror-redirect.py
+Terminal=false
+Icon=mirror-redirect
+Type=Application
+GenericName=zero-lliurex-mirror-redirect
+NoDisplay=true
+Categories=LliureX-Administration;

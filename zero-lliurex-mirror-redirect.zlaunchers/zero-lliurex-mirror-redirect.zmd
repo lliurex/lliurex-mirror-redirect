@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#set -x
+
+## Global Variables
+###################
+
+export TEXTDOMAIN="zero-lliurex-mirror-redirect"
+/usr/sbin/mirror-redirect.py
