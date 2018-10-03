@@ -40,7 +40,7 @@ class redirectMirror(threading.Thread):
 	#def _debug
 
 	def _n4d_connect(self,server):
-		n4dclient=n4d.ServerProxy("https://"+server+":9779")
+		n4dclient=n4d.ServerProxy("https://%s:9779"%server)
 		return(n4dclient)
 
 	def set_credentials(self,credentials):
