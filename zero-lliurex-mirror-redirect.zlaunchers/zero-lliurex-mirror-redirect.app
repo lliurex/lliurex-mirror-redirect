@@ -14,5 +14,5 @@ Category=Network
 ScriptPath=zero-lliurex-mirror-redirect.zmd
 Service=False
 Locks=zero-lliurex-mirror-redirect
-Using=pe
+Using=pkexec
 Groups=adm;admins;
