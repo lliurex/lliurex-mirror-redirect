@@ -11,6 +11,7 @@ import threading
 import sys
 import xmlrpclib as n4d
 import lliurex.interfacesparser
+import yaml
 from edupals.ui.n4dgtklogin import *
 import gettext
 gettext.textdomain('zero-lliurex-mirror-redirect')
@@ -25,7 +26,7 @@ class redirectMirror(threading.Thread):
 		self.callback=callback
 		self.hostFile="/var/lib/dnsmasq/hosts/mirror"
 		self.cnameFile="/var/lib/dnsmasq/config/cname-mirror"
-		self.mirror_dir="/net/mirror/llx16"
+		self.mirror_dir="/net/mirror/llx19"
 		self.slave_ip=''
 		self.master_ip='10.3.0.254'
 		self.n4d=self._n4d_connect("localhost")
@@ -58,7 +59,7 @@ class redirectMirror(threading.Thread):
 		sw_enabled=False
 		self.slave_ip=self._get_replication_ip()
 		try:
-			sw_enabled=self.n4dMaster.is_mirror_shared("","NfsManager","/net/mirror/llx16",self.slave_ip)['status']
+			sw_enabled=self.n4dMaster.is_mirror_shared("","NfsManager","/net/mirror/llx19",self.slave_ip)['status']
 		except:
 			sw_enabled=False
 		return(sw_enabled)
@@ -95,16 +96,21 @@ class redirectMirror(threading.Thread):
 	#def disable_redirect
 
 	def _get_replication_ip(self):
-		ifaces=lliurex.interfacesparser.InterfacesParser()
-		ifaces.load('/etc/network/interfaces')
-		iface=''
-		for aux_iface in ifaces.get_interfaces_in_range("10.3.0.0/24"):
-			iface=aux_iface
-			break
-		ip=ifaces.get_info_interface(iface)[1].split('\n')[1].split(' ')[-1]
-		return ip
+				
+		path="/etc/netplan/30-replication-lliurex.yaml"
+		try:
+			if os.path.exists(path):
+				with open(path,"r") as stream:
+					data=yaml.safe_load(stream)
+				eth=data["network"]["ethernets"].keys()[0]
+				return data["network"]["ethernets"][eth]["addresses"][0].split("/")[0]
+		except Exception as e:
+			print("Failed getting replication IP")
+			print(e)
+			raise e		
+		
 	#def _get_replication_ip
-
+	
 class mainWindow(Gtk.Window):
 	def __init__(self):
 		self.redirectMirror=redirectMirror(self._callback)
