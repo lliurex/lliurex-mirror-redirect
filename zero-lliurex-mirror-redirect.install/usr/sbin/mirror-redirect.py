@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
 import gi
 gi.require_version('Gtk', '3.0')
@@ -9,7 +10,8 @@ import subprocess
 import time
 import threading
 import sys
-import xmlrpclib as n4d
+import ssl
+import xmlrpc.client as n4d
 import lliurex.interfacesparser
 import yaml
 from edupals.ui.n4dgtklogin import *
@@ -37,11 +39,12 @@ class redirectMirror(threading.Thread):
 
 	def _debug(self,msg):
 		if self.dbg==1:
-			print("DBG: "+str(msg))
+			print(("DBG: "+str(msg)))
 	#def _debug
 
 	def _n4d_connect(self,server):
-		n4dclient=n4d.ServerProxy("https://%s:9779"%server)
+		context=ssl._create_unverified_context()
+		n4dclient=n4d.ServerProxy("https://%s:9779"%server,allow_none=True,context=context)
 		return(n4dclient)
 
 	def set_credentials(self,credentials):
@@ -102,7 +105,7 @@ class redirectMirror(threading.Thread):
 			if os.path.exists(path):
 				with open(path,"r") as stream:
 					data=yaml.safe_load(stream)
-				eth=data["network"]["ethernets"].keys()[0]
+				eth=list(data["network"]["ethernets"].keys())[0]
 				return data["network"]["ethernets"][eth]["addresses"][0].split("/")[0]
 		except Exception as e:
 			print("Failed getting replication IP")
@@ -187,7 +190,7 @@ class mainWindow(Gtk.Window):
 
 	def _debug(self,msg):
 		if self.dbg==1:
-			print("DBG: "+str(msg))
+			print(("DBG: "+str(msg)))
 	#def _debug
 
 	def _on_sw_state(self,widget,data):
