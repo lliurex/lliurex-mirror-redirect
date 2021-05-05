@@ -1,3 +1,9 @@
+zero-lliurex-mirror-redirect (0.8.0+nmu1) UNRELEASED; urgency=medium
+
+  * Focal release
+
+ -- Juanma1980 <juanma1980@gmail.com>  Wed, 05 May 2021 19:19:26 +0200
+
 zero-lliurex-mirror-redirect (0.8.0) bionic; urgency=medium
 
   * Migrated to python3 
