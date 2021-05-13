@@ -19,7 +19,7 @@ class main(confStack):
 	def __init_stack__(self):
 		self.dbg=True
 		self._debug("Main Stack loaded")
-		self.index=5
+		self.description="Redirect Mirror"
 		self.visible=False
 		self.enabled=True
 		self.level='n4d'
@@ -34,7 +34,7 @@ class main(confStack):
 		#box.addWidget(self.statusBar)
 		self.setLayout(box)
 		self.chkEnabled=QCheckBox(_("Enable mirror redirection"))
-		self.chkEnabled.stateChanged.connect(self._on_sw_state)
+		#self.chkEnabled.stateChanged.connect(self._on_sw_state)
 		box.addWidget(self.chkEnabled,0,0,1,1)
 		self.updateScreen()
 		return(self)
@@ -48,19 +48,7 @@ class main(confStack):
 	#def _udpate_screen
 
 	def _on_sw_state(self,state):
-		self._debug("State changed to {}".format(state))
-#widget.set_sensitive(False)
-#		self.spinner.start()
-		if state:
-			self._debug("Redirecting mirror...")
-#			self.lbl_state.set_text(_("Redirecting mirror..."))
-			th=threading.Thread(target=self.enable_redirect)
-			th.start()
-		else:
-			self.lbl_state.set_text(_("Redirecting mirror..."))
-#			th=threading.Thread(target=self.redirectMirror.disable_redirect)
-#			th.start()
-		self._debug("Done")
+			pass
 	#def _on_sw_state
 
 	def is_enabled(self):
@@ -73,6 +61,8 @@ class main(confStack):
 			if isinstance(resp,dict):
 				if resp['status']==0:
 					sw_enabled=True
+				elif resp['status']<0:
+					self.showMsg("Error Code: {}".format(resp['status']))
 		except Exception as e:
 			print(e)
 			self._debug(e)
@@ -120,6 +110,7 @@ class main(confStack):
 				os.makedirs(self.mirror_dir)
 			except:
 				self._debug("Can't create dir %s"%self.mirror_dir)
+				self.showMsg(_("Can't create dir {}".format(self.mirror_dir)))
 				return sw_add
 		
 		try:
@@ -133,21 +124,29 @@ class main(confStack):
 					sw_add=False
 		except Exception as e:
 			print("Add mirror err: {}".format(e))
+			self.showMsg(_("Add mirror error {}".format(e)))
 			sw_add=False
 		return sw_add
 	#def enable_redirect
 	
 	def writeConfig(self):
-		name=self.name.text()
-		desc=self.desc.text()
-		url=self.url.text()
-		ret=self.appConfig.n4dQuery("RepoManager","add_repo","\"%s\",\"%s\",\"%s\""%(name,desc,url))
-		status=ret.get('status',1)
-		if status:
-			self.statusBar.setText(_("Error adding repository %s"%name))
-			self.statusBar.show()
-		self.changes=False
-		self.stack.gotoStack(idx=2,parms="")
-		return(ret)
+		state=self.chkEnabled.isChecked()
+		self._debug("State changed to {}".format(state))
+#widget.set_sensitive(False)
+#		self.spinner.start()
+		if state:
+			self._debug("Redirecting mirror...")
+#			self.lbl_state.set_text(_("Redirecting mirror..."))
+			#th=threading.Thread(target=self.enable_redirect)
+			#th.start()
+			if not self.enable_redirect():
+				self.chkEnabled.setChecked(False)
+		else:
+			self.lbl_state.set_text(_("Redirecting mirror..."))
+			if not self.disable_redirect():
+				self.chkEnabled.setChecked(False)
+#			th=threading.Thread(target=self.redirectMirror.disable_redirect)
+#			th.start()
+		self._debug("Done")
 	#def writeConfig
 
