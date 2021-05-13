@@ -1,6 +1,7 @@
-zero-lliurex-mirror-redirect (0.8.0+nmu1) UNRELEASED; urgency=medium
+zero-lliurex-mirror-redirect (0.9) focal; urgency=medium
 
   * Focal release
+  * Ported to QT and new n4d
 
  -- Juanma1980 <juanma1980@gmail.com>  Wed, 05 May 2021 19:19:26 +0200
 
