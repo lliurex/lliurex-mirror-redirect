@@ -14,7 +14,8 @@ import ssl
 import xmlrpc.client as n4d
 import lliurex.interfacesparser
 import yaml
-from edupals.ui.n4dgtklogin import *
+#from edupals.ui.n4dgtklogin import *
+from appconfig import appConfigN4d
 import gettext
 gettext.textdomain('zero-lliurex-mirror-redirect')
 _ = gettext.gettext
@@ -140,13 +141,13 @@ class mainWindow(Gtk.Window):
 		form_grid.set_column_homogeneous(False)
 		form_grid.set_row_homogeneous(False)
 		form_grid.set_margin_right(0)
-		login=N4dGtkLogin()
+	#	login=N4dGtkLogin()
 		desc=_("From here you can redirect the mirror in a slave server to the master server's own mirror")
-		login.set_info_text("<span foreground='black'>Mirror Redirect</span>",_("Redirect mirror"),"<span foreground='black'>"+desc+"</span>")
-		login.set_info_background(image='/usr/share/mirror-redirect/rsrc/redirect.svg',cover=True)
-		login.set_allowed_groups(['adm'])
-		login.after_validation_goto(self._signin)
-		login.set_mw_proportion_ratio(2,1)
+	#	login.set_info_text("<span foreground='black'>Mirror Redirect</span>",_("Redirect mirror"),"<span foreground='black'>"+desc+"</span>")
+	#	login.set_info_background(image='/usr/share/mirror-redirect/rsrc/redirect.svg',cover=True)
+	#	login.set_allowed_groups(['adm'])
+	#	login.after_validation_goto(self._signin)
+	#	login.set_mw_proportion_ratio(2,1)
 		img_banner=Gtk.Image()
 		img_banner.set_from_file('/usr/share/mirror-redirect/rsrc/redirect_banner.png')
 		form_grid.attach(img_banner,0,0,2,1)
@@ -173,9 +174,9 @@ class mainWindow(Gtk.Window):
 		self.lbl_state.set_text(_(service_label))
 		self.sw_enable.connect("state-set",self._on_sw_state)
 		
-		self.stack.add_titled(login, "login", "Login")
+		#self.stack.add_titled(login, "login", "Login")
 		self.stack.add_titled(form_grid, "gui", "Gui")
-		self.stack.set_visible_child_name("login")
+		#self.stack.set_visible_child_name("login")
 		self.add(self.stack)
 		self.set_position(Gtk.WindowPosition.CENTER)
 		self.connect("delete-event", Gtk.main_quit)
