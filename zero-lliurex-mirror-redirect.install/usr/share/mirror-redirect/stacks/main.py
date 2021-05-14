@@ -24,7 +24,7 @@ class main(confStack):
 		self.enabled=True
 		self.level='n4d'
 		self.n4d_master=appConfigN4d()
-		self.mirror_dir="/net/mirror/llx19"
+		self.mirror_dir="/net/mirror/llx21"
 	#def __init__
 	
 	def _load_screen(self):
@@ -57,14 +57,16 @@ class main(confStack):
 		self._debug("Slave IP: {}".format(self.slave_ip))
 		try:
 				#sw_enabled=self.n4dMaster.is_mirror_shared("","NfsManager","/net/mirror/llx19",self.slave_ip)['status']
-			resp=self.n4d_master.n4dQuery("NfsManager","is_mirror_shared","/net/mirror/llx19",self.slave_ip)
+			#resp=self.n4d_master.n4dQuery("NfsManager","is_mirror_shared",self.mirror_dir,self.slave_ip)
+			resp=self.n4dQuery("NfsManager","is_mirror_shared",self.mirror_dir,self.slave_ip,ip=self.master_ip)
 			if isinstance(resp,dict):
-				if resp['status']==0:
+				if resp.get('status',-1)==0:
 					sw_enabled=True
-				elif resp['status']<0:
-					self.showMsg("Error Code: {}".format(resp['status']))
+			elif isinstance(resp,str):
+				if resp=="Shared is configured":
+					sw_enabled=True
 		except Exception as e:
-			print(e)
+				#self.showMsg("Error Code: {}".format(resp.get('status',-1)))
 			self._debug(e)
 			sw_enabled=False
 		self._debug("Redirect enabled: {}".format(sw_enabled))
@@ -90,6 +92,7 @@ class main(confStack):
 	def _set_server_data(self):
 			#self.master_ip=self.n4dQuery("VariablesManager","get_variable","MASTER_SERVER_IP")
 		master_ip=self.n4dGetVar(var="MASTER_SERVER_IP")
+		self._debug("Get master_ip: {}".format(master_ip))
 		self.master_ip=''
 		if isinstance(master_ip,dict):
 			self.master_ip=master_ip.get('ip','')
@@ -105,20 +108,21 @@ class main(confStack):
 	
 	def enable_redirect(self):
 		sw_add=False
-		if not os.path.isdir(self.mirror_dir):
-			try:
-				os.makedirs(self.mirror_dir)
-			except:
-				self._debug("Can't create dir %s"%self.mirror_dir)
-				self.showMsg(_("Can't create dir {}".format(self.mirror_dir)))
-				return sw_add
+		#if not os.path.isdir(self.mirror_dir):
+		#	try:
+		#		os.makedirs(self.mirror_dir)
+		#	except:
+		#		self._debug("Can't create dir %s"%self.mirror_dir)
+		#		self.showMsg(_("Can't create dir {}".format(self.mirror_dir)))
+		#		return sw_add
 		
 		try:
-			sw_add=self.n4d_master.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip)
-			if not self.n4dQuery("NfsManager","is_mount_configured",self.mirror_dir):
+				#sw_add=self.n4d_master.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip)
+			sw_add=self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
+			if not self.n4dQuery("NfsManager","is_mount_configured","{}".format(self.mirror_dir)):
 				self._debug("Mounting on boot")
 				try:
-					self.n4dQuery("NfsManager","configure_mount_on_boot",self.master_ip+":"+self.mirror_dir,self.mirror_dir)
+					self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir))
 				except Exception as e:
 					print("Mount error: {}".format(e))
 					sw_add=False
@@ -128,6 +132,17 @@ class main(confStack):
 			sw_add=False
 		return sw_add
 	#def enable_redirect
+	
+	def disable_redirect(self):
+		sw_rm=True
+		try:
+			self.n4dQuery("NfsManager","remove_ip_from_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
+			self.n4dQuery("NfsManager","remove_mount_on_boot",self.mirror_dir)
+			#self.n4d_master.n4dQuery("NfsManager","remove_ip_from_mirror",self.mirror_dir,self.slave_ip)
+		except:
+			sw_rm=False
+		return sw_rm
+	#def disable_redirect
 	
 	def writeConfig(self):
 		state=self.chkEnabled.isChecked()
@@ -142,7 +157,7 @@ class main(confStack):
 			if not self.enable_redirect():
 				self.chkEnabled.setChecked(False)
 		else:
-			self.lbl_state.set_text(_("Redirecting mirror..."))
+			self._debug(_("Redirecting mirror..."))
 			if not self.disable_redirect():
 				self.chkEnabled.setChecked(False)
 #			th=threading.Thread(target=self.redirectMirror.disable_redirect)
