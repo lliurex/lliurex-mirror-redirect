@@ -118,29 +118,29 @@ class main(confStack):
 		
 		try:
 				#sw_add=self.n4d_master.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip)
-			sw_add=self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
-			if not self.n4dQuery("NfsManager","is_mount_configured","{}".format(self.mirror_dir)):
-				self._debug("Mounting on boot")
-				try:
+			mount_stat=self.n4dQuery("NfsManager","is_mount_configured","{}".format(self.mirror_dir))
+			sw_add=True
+			if isinstance(mount_stat,dict):
+				if mount_stat.get('status',0)==-1:
+					self._debug("Mounting on boot")
 					self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir))
-				except Exception as e:
-					print("Mount error: {}".format(e))
-					sw_add=False
+					sw_add=True
 		except Exception as e:
 			print("Add mirror err: {}".format(e))
 			self.showMsg(_("Add mirror error {}".format(e)))
 			sw_add=False
+		self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
 		return sw_add
 	#def enable_redirect
 	
 	def disable_redirect(self):
 		sw_rm=True
 		try:
-			self.n4dQuery("NfsManager","remove_ip_from_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
 			self.n4dQuery("NfsManager","remove_mount_on_boot",self.mirror_dir)
 			#self.n4d_master.n4dQuery("NfsManager","remove_ip_from_mirror",self.mirror_dir,self.slave_ip)
 		except:
 			sw_rm=False
+		self.n4dQuery("NfsManager","remove_ip_from_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
 		return sw_rm
 	#def disable_redirect
 	
