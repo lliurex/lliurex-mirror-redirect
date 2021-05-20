@@ -8,6 +8,6 @@ Standards-Version: 3.9.5
 
 Package: zero-lliurex-mirror-redirect
 Architecture: all
-Depends: python-n4dgtklogin,n4d-nfs (>=0.6.2), python3-llxnet, python3-netaddr
+Depends: python3-appconfig(>=0.30.2),n4d-nfs (>=0.6.2), python3-llxnet, python3-netaddr
 Description: Redirects mirror to master server
  Redirects mirror on a slave server to the master server
