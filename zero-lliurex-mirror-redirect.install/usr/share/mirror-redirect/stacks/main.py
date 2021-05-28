@@ -11,7 +11,7 @@ _ = gettext.gettext
 
 class main(confStack):
 	def __init_stack__(self):
-		self.dbg=True
+		self.dbg=False
 		self._debug("Main Stack loaded")
 		self.description="Redirect Mirror"
 		self.visible=False
@@ -107,7 +107,6 @@ class main(confStack):
 		sw_rm=True
 		self.n4dQuery("NfsManager","remove_ip_from_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
 		try:
-			print("LARALALALA")
 			self.n4dQuery("NfsManager","remove_mount_on_boot",self.mirror_dir)
 		except:
 			sw_rm=False
