@@ -82,13 +82,13 @@ class main(confStack):
 			master_ip=self.n4dGetVar(var="SRV_IP")
 			if isinstance(master_ip,dict):
 				self.master_ip=master_ip.get('ip','')
-		if self.n4d_master.server=='server':
+		if self.n4d_master.server=='server' or self.n4d_master.server=='localhost':
 			self.n4d_master.server=self.master_ip
 	#def _set_server_data
 	
 	def enable_redirect(self):
 		sw_add=False
-		status=self.n4d_master.get_variable(var="LLIUREXMIRROR")
+		status=self.n4d_master.n4dGetVar(client=None,var="LLIUREXMIRROR")
 		if isinstance(status,dict):
 			if status.get("llx21",None):
 				if status["llx21"].get('last_mirror_date',None)==None:
