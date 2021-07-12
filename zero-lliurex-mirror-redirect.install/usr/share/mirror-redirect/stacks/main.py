@@ -5,6 +5,7 @@ from appconfig.appConfigStack import appConfigStack as confStack
 from appconfig.appConfigN4d import appConfigN4d
 import os
 import yaml
+import json
 
 import gettext
 _ = gettext.gettext
@@ -89,10 +90,14 @@ class main(confStack):
 	def enable_redirect(self):
 		sw_add=False
 		status=self.n4d_master.n4dGetVar(client=None,var="LLIUREXMIRROR")
+		try:
+			status_orig=self.n4dGetVar(var="LLIUREXMIRROR")
+		except:
+			status_orig={}
+
 		if isinstance(status,dict):
 			if status.get("llx21",None):
 				if status["llx21"].get('last_mirror_date',None)==None:
-					print(_("No mirror at master server"))
 					self.showMsg(_("No mirror at master server"))
 				else:
 					self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
@@ -103,13 +108,15 @@ class main(confStack):
 								self._debug("Mounting on boot")
 								self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir))
 								sw_add=True
-						self.n4dSetVar(None,"LLIUREXMIRROR",self.n4d_master.get_variable(var="LLIUREXMIRROR"))
-
+						self.n4dSetVar(var="LLIUREXMIRROR",val=status)
+						self.n4dSetVar(var="LLIUREXMIRROR_ORIG",val=status_orig)
 
 					except Exception as e:
 						print("Add mirror err: {}".format(e))
 						self.showMsg(_("Error adding mirror {}".format(e)))
 						sw_add=False
+			else:
+				self.showMsg(_("No mirror at master server"))
 		return sw_add
 	#def enable_redirect
 	
@@ -120,6 +127,15 @@ class main(confStack):
 			self.n4dQuery("NfsManager","remove_mount_on_boot",self.mirror_dir)
 		except:
 			sw_rm=False
+		try:
+			status_orig=self.n4dGetVar(var="LLIUREXMIRROR_ORIG")
+		except:
+			status_orig={}
+		self.n4dSetVar(var="LLIUREXMIRROR",val=status_orig)
+		try:
+			self.n4dDelVar(var="LLIUREXMIRROR_ORIG")
+		except:
+			pass
 		return sw_rm
 	#def disable_redirect
 	
