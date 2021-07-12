@@ -88,21 +88,28 @@ class main(confStack):
 	
 	def enable_redirect(self):
 		sw_add=False
-		self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
-		try:
-			mount_stat=self.n4dQuery("NfsManager","is_mount_configured","{}".format(self.mirror_dir))
-			if isinstance(mount_stat,dict):
-				if mount_stat.get('status',0)==-1:
-					self._debug("Mounting on boot")
-					self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir))
-					sw_add=True
-			self.n4dSetVar("LLIUREXMURROR",self.n4d_master.get_variable(var="LLIUREXMIRROR"))
+		status=self.n4d_master.get_variable(var="LLIUREXMIRROR")
+		if isinstance(status,dict):
+			if status.get("llx21",None):
+				if status["llx21"].get('last_mirror_date',None)==None:
+					print(_("No mirror at master server"))
+					self.showMsg(_("No mirror at master server"))
+				else:
+					self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
+					try:
+						mount_stat=self.n4dQuery("NfsManager","is_mount_configured","{}".format(self.mirror_dir))
+						if isinstance(mount_stat,dict):
+							if mount_stat.get('status',0)==-1:
+								self._debug("Mounting on boot")
+								self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir))
+								sw_add=True
+						self.n4dSetVar(None,"LLIUREXMIRROR",self.n4d_master.get_variable(var="LLIUREXMIRROR"))
 
 
-		except Exception as e:
-			print("Add mirror err: {}".format(e))
-			self.showMsg(_("Error adding mirror {}".format(e)))
-			sw_add=False
+					except Exception as e:
+						print("Add mirror err: {}".format(e))
+						self.showMsg(_("Error adding mirror {}".format(e)))
+						sw_add=False
 		return sw_add
 	#def enable_redirect
 	
