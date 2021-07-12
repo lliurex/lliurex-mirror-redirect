@@ -96,6 +96,9 @@ class main(confStack):
 					self._debug("Mounting on boot")
 					self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir))
 					sw_add=True
+			self.n4dSetVar("LLIUREXMURROR",self.n4d_master.get_variable(var="LLIUREXMIRROR"))
+
+
 		except Exception as e:
 			print("Add mirror err: {}".format(e))
 			self.showMsg(_("Error adding mirror {}".format(e)))
