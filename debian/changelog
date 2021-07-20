@@ -1,3 +1,9 @@
+zero-lliurex-mirror-redirect (0.9.5) focal; urgency=medium
+
+  * Use nfsv4 on slave mounts
+
+ -- M.Angel Juan <m.angel.juan@gmail.com>  Tue, 20 Jul 2021 08:50:31 +0200
+
 zero-lliurex-mirror-redirect (0.9.4) focal; urgency=medium
 
   * Focal release
