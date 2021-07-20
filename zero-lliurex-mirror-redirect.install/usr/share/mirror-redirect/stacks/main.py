@@ -106,7 +106,7 @@ class main(confStack):
 						if isinstance(mount_stat,dict):
 							if mount_stat.get('status',0)==-1:
 								self._debug("Mounting on boot")
-								self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir))
+								self.n4dQuery("NfsManager","configure_mount_on_boot","{}:{}".format(self.master_ip,self.mirror_dir),"{}".format(self.mirror_dir),'rw,hard,intr,nosuid,nfsvers=4')
 								sw_add=True
 						self.n4dSetVar(var="LLIUREXMIRROR",val=status)
 						self.n4dSetVar(var="LLIUREXMIRROR_ORIG",val=status_orig)
