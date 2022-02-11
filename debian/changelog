@@ -1,4 +1,4 @@
-zero-lliurex-mirror-redirect (0.9.6.1) focal; urgency=medium
+zero-lliurex-mirror-redirect (0.9.6.2) focal; urgency=medium
 
   * Show error msg when no ethernet available 
 
