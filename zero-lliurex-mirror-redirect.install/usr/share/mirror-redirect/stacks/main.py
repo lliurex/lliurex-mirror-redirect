@@ -80,8 +80,7 @@ class main(confStack):
 		except Exception as e:
 			print("Failed getting replication IP")
 			self.showMsg("Failed getting replication IP")
-			print(e)
-			raise e		
+			self.setEnabled(False)
 	#def _get_replication_ip
 	
 	def _set_server_data(self):
