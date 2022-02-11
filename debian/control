@@ -1,0 +1,13 @@
+Source: zero-lliurex-mirror-redirect
+Section: admin
+Priority: optional
+Maintainer: Equipo LliureX <lliurex@gva.es>
+Uploaders: M.Angel Juan <m.angel.juan@gmail.com>, Raul Rodrigo Segura <lliurex_devel3@edu.gva.es>, Hector Garcia Huerta <lliurex_devel1@edu.gva.es>, Daniel Duran Vecino <daduve@gmail.com>, Juanma Navarro <juanma1980@gmail.com>, Juan Ramon Pelegrina <juapesai@hotmail.com>
+Build-Depends: llxsrchelper,debhelper (>= 7.0.50~), zero-dev,python3-poinstaller
+Standards-Version: 3.9.5
+
+Package: zero-lliurex-mirror-redirect
+Architecture: all
+Depends: python3-appconfig(>=0.30.2),n4d-nfs (>=0.6.2), python3-llxnet, python3-netaddr
+Description: Redirects mirror to master server
+ Redirects mirror on a slave server to the master server

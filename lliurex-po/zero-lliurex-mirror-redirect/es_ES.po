@@ -1,0 +1,71 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-22 11:55+0200\n"
+"PO-Revision-Date: 2018-06-22 11:56+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:114
+msgid "You need to be on a slave server to run mirror-redirect"
+msgstr "Tienes que estar en un servidor esclavo para ejecutar este programa"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:123
+msgid "Mirror Redirect"
+msgstr "Redireccionar Mirror"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:136
+msgid ""
+"From here you can redirect the mirror in a slave server to the master "
+"server's own mirror"
+msgstr ""
+"Desde aquí puedes redirigir el mirror de un servidor esclavo para que use "
+"el mirror del servidor maestro"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:137
+msgid "Redirect mirror"
+msgstr "Redireccionar el mirror"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:145
+msgid "Enable mirror redirection"
+msgstr "Activar redirección del mirror"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:162
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:208
+msgid "Using master server mirror"
+msgstr "Usando mirror del servidor maestro"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:164
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:210
+msgid "Using local mirror"
+msgstr "Usando mirror local"
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:195
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:199
+msgid "Redirecting mirror..."
+msgstr "Redireccionado mirror..."
+
+#: ../zero-lliurex-mirror-redirect.install/usr/sbin/mirror-redirect.py:231
+msgid "You need root privileges to run mirror-redirect"
+msgstr "Tienes que ser root para ejecutar esta aplicación"
+
+#~ msgid "Mirror redirect"
+#~ msgstr "Redireccionar Mirror"
+
+#~ msgid "Enable Mirror Redirect"
+#~ msgstr "Activar redirección del mirror"
+
+#~ msgid "You need root privileges to run transparfent-proxy-manager"
+#~ msgstr "Tienes que ser root para ejecutar este programa"

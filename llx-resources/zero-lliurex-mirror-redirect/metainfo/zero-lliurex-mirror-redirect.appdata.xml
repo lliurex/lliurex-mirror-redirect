@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+<id>zero-lliurex-mirror-redirect_zmd</id>
+<metadata_license>CC0-1.0</metadata_license>
+<name>zero-lliurex-mirror-redirect</name>
+<name xml:lang="en">Mirror Redirect</name>
+<name xml:lang="es">Redireccionar Mirror</name>
+<name xml:lang="ca">Redireccionar Mirror</name>
+<name xml:lang="ca_ES@valencia.UTF-8">Redireccionar Mirror</name>
+<name xml:lang="ca_ES@valencia">Redireccionar Mirror</name>
+<summary>Redirects the mirror on a slave server to the master server</summary>
+<summary xml:lang="es">Redirecciona el mirror de un servidor esclavo al servidor maestro</summary>
+<summary xml:lang="ca">Redirecciona el mirror del servidor esclau al servidor mestre</summary>
+<summary xml:lang="ca_ES@valencia.UTF-8">Redirecciona el mirror del servidor esclau al servidor mestre</summary>
+<summary xml:lang="ca_ES@valencia">Redirecciona el mirror del servidor esclau al servidor mestre</summary>
+<description>
+<p>Redirects the mirror on a slave server to the master server</p>
+<p xml:lang="es">Redirecciona el mirror de un servidor esclavo al servidor maestro</p>
+<p xml:lang="ca">Redirecciona el mirror del servidor esclau al servidor mestre</p>
+<p xml:lang="ca_ES@valencia.UTF-8">Redirecciona el mirror del servidor esclau al servidor mestre</p>
+<p xml:lang="ca_ES@valencia">Redirecciona el mirror del servidor esclau al servidor mestre</p>
+</description>
+<categories>
+<category>Lliurex</category>
+<category>Zomando</category>
+<category>Utility</category>
+</categories>
+<icon type="cached">mirror-redirect</icon>
+
+<keywords>
+<keyword>zero</keyword>
+<keyword>lliurex</keyword>
+<keyword>mirror</keyword>
+<keyword>redirect</keyword>
+<keyword>zero-lliurex-mirror-redirect</keyword>
+<keyword>Zomando</keyword>
+</keywords>
+<keywords xml:lang="en">
+<keyword>Mirror</keyword>
+<keyword>Redirect</keyword>
+<keyword>Zomando</keyword>
+</keywords>
+<keywords xml:lang="es">
+<keyword>Redireccionar</keyword>
+<keyword>Zomando</keyword>
+</keywords>
+<keywords xml:lang="ca">
+<keyword>Zomando</keyword>
+</keywords>
+<keywords xml:lang="ca_ES@valencia.UTF-8">
+<keyword>Zomando</keyword>
+</keywords>
+<keywords xml:lang="ca_ES@valencia">
+<keyword>Zomando</keyword>
+
+</keywords>
+</component>

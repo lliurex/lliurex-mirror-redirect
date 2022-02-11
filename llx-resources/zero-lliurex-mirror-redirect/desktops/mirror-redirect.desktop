@@ -1,0 +1,18 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Mirror redirect
+Name[en]=Mirror redirect
+Name[es]=Redirecció del mirror
+Name[ca_ES.UTF-8@valencia]=Redirecció del mirror
+Name[ca_ES]=Redirecció del mirror
+Comment=Mirror redirect
+Comment[es]=Redirecciona el mirror al servidor maestro
+Comment[ca_ES.UTF-8@valencia]=Redirecciona el mirror al servidor mestre
+Comment[ca_ES]=Redirecciona el mirror al servidor mestre
+Exec=/usr/sbin/mirror-redirect.py
+Icon=mirror-redirect
+Type=Application
+GenericName=mirror-redirect
+NoDisplay=true
+Categories=LliureX-Administration;
