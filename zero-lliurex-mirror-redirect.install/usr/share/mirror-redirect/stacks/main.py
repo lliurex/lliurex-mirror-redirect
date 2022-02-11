@@ -63,10 +63,23 @@ class main(confStack):
 			if os.path.exists(path):
 				with open(path,"r") as stream:
 					data=yaml.safe_load(stream)
-				eth=list(data["network"]["ethernets"].keys())[0]
-				return data["network"]["ethernets"][eth]["addresses"][0].split("/")[0]
+				eths=list(data.get("network",{}).get("ethernets",{}).keys())
+				if eths:
+					eth=eths[0]
+					addresses=data["network"]["ethernets"][eth].get("addresses",[])
+					if addresses:
+						addr=addresses[0].split("/")[0]
+						return addr
+						#return data["network"]["ethernets"][eth]["addresses"][0].split("/")[0]
+					else:
+						raise FileNotFoundError
+				else:
+					raise FileNotFoundError
+			else:
+				raise FileNotFoundError
 		except Exception as e:
 			print("Failed getting replication IP")
+			self.showMsg("Failed getting replication IP")
 			print(e)
 			raise e		
 	#def _get_replication_ip
