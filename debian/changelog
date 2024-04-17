@@ -1,3 +1,9 @@
+zero-lliurex-mirror-redirect (0.9.6.3) jammy; urgency=medium
+
+  * Fixed mirror path 
+
+ -- Hector Garcia Huerta <hectorgh@gmail.com>  Wed, 17 Apr 2024 10:46:07 +0200
+
 zero-lliurex-mirror-redirect (0.9.6.2.23) jammy; urgency=medium
 
   * First jammy release 
