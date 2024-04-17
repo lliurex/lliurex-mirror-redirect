@@ -19,7 +19,7 @@ class main(confStack):
 		self.enabled=True
 		self.level='n4d'
 		self.n4d_master=appConfigN4d()
-		self.mirror_dir="/net/mirror/llx21"
+		self.mirror_dir="/net/mirror/llx23"
 	#def __init__
 	
 	def _load_screen(self):
@@ -108,8 +108,8 @@ class main(confStack):
 			status_orig={}
 
 		if isinstance(status,dict):
-			if status.get("llx21",None):
-				if status["llx21"].get('last_mirror_date',None)==None:
+			if status.get("llx23",None):
+				if status["llx23"].get('last_mirror_date',None)==None:
 					self.showMsg(_("No mirror at master server"))
 				else:
 					self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
