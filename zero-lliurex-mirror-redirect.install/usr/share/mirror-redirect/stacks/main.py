@@ -87,16 +87,21 @@ class main(confStack):
 		master_ip=self.n4dGetVar(var="MASTER_SERVER_IP")
 		self._debug("Get master_ip: {}".format(master_ip))
 		self.master_ip=''
+		sw_slave=False
 		if isinstance(master_ip,dict):
 			self.master_ip=master_ip.get('ip','')
 		if (self.master_ip):
-			self.sw_slave=True
+			sw_slave=True
 		else:
 			master_ip=self.n4dGetVar(var="SRV_IP")
 			if isinstance(master_ip,dict):
 				self.master_ip=master_ip.get('ip','')
 		if self.n4d_master.server=='server' or self.n4d_master.server=='localhost':
 			self.n4d_master.server=self.master_ip
+		self._debug("Set master_ip: {}".format(self.master_ip))
+		if sw_slave==False:
+			self.setEnabled(False)
+			self.showMsg("[!] You need to be on a slave server to run this program [!]")
 	#def _set_server_data
 	
 	def enable_redirect(self):
