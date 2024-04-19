@@ -1,3 +1,10 @@
+zero-lliurex-mirror-redirect (1.0) jammy; urgency=medium
+
+  * mirror path based on lliurex-version
+  * BUGFIX: Block app if in master server
+
+ -- Juanma1980 <juanma1980@gmail.com>  Fri, 19 Apr 2024 09:39:14 +0200
+
 zero-lliurex-mirror-redirect (0.9.6.3) jammy; urgency=medium
 
   * Fixed mirror path 
