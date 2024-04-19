@@ -3,7 +3,7 @@ from PySide2 import QtGui
 from PySide2.QtCore import Qt
 from appconfig.appConfigStack import appConfigStack as confStack
 from appconfig.appConfigN4d import appConfigN4d
-import os
+import os,subprocess
 import yaml
 import json
 
@@ -18,8 +18,14 @@ class main(confStack):
 		self.visible=False
 		self.enabled=True
 		self.level='n4d'
+		cmd=["lliurex-version","-n"]
+		try:
+			out=subprocess.check_output(cmd,text=True,encoding="utf8")
+			self.distro="llx{}".format(out.split(".")[0])
+		except:
+			self.distro="llx23"
 		self.n4d_master=appConfigN4d()
-		self.mirror_dir="/net/mirror/llx23"
+		self.mirror_dir="/net/mirror/{}".format(self.distro)
 	#def __init__
 	
 	def _load_screen(self):
@@ -113,8 +119,8 @@ class main(confStack):
 			status_orig={}
 
 		if isinstance(status,dict):
-			if status.get("llx23",None):
-				if status["llx23"].get('last_mirror_date',None)==None:
+			if status.get(self.distro,None):
+				if status[self.distro].get('last_mirror_date',None)==None:
 					self.showMsg(_("No mirror at master server"))
 				else:
 					self.n4dQuery("NfsManager","add_mirror",self.mirror_dir,self.slave_ip,ip=self.master_ip)
